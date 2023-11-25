@@ -1,4 +1,7 @@
 import Link from 'next/link'
+import { cookies } from 'next/headers'
+
+import { getServerSideUser } from '@/lib/payload-utils'
 
 import { MaxWidthWrapper } from '../max-width-wrapper'
 import { Icons } from '../icons'
@@ -6,8 +9,9 @@ import { NavItems } from './nav-items'
 import { buttonVariants } from '../ui/button'
 import { Cart } from '../cart'
 
-export const Navbar = () => {
-  const user = null
+export const Navbar = async () => {
+  const nextCookies = cookies()
+  const { user } = await getServerSideUser(nextCookies)
 
   return (
     <div className="sticky inset-x-0 top-0 z-50 h-16 bg-white">
