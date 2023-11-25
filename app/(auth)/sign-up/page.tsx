@@ -10,6 +10,7 @@ import {
   AuthCredentialsValidator,
   TAuthCredentialsValidator,
 } from '@/lib/validators/account-credentials-validator'
+import { trpc } from '@/trpc/client'
 
 import { Icons } from '@/components/icons'
 import { Button, buttonVariants } from '@/components/ui/button'
@@ -29,7 +30,11 @@ const SignUpPage = () => {
     },
   })
 
-  const onSubmit = ({ email, password }: TAuthCredentialsValidator) => {}
+  const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({})
+
+  const onSubmit = ({ email, password }: TAuthCredentialsValidator) => {
+    mutate({ email, password })
+  }
 
   return (
     <>
@@ -74,6 +79,7 @@ const SignUpPage = () => {
                       'focus-visible:ring-red-500': errors.password,
                     })}
                     placeholder="Enter your password"
+                    type="password"
                   />
                 </div>
 
