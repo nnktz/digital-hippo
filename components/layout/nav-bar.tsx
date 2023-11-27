@@ -8,6 +8,7 @@ import { Icons } from '../icons'
 import { NavItems } from './nav-items'
 import { buttonVariants } from '../ui/button'
 import { Cart } from '../cart'
+import { UserAccountNav } from './user-account-nav'
 
 export const Navbar = async () => {
   const nextCookies = cookies()
@@ -47,7 +48,7 @@ export const Navbar = async () => {
                   )}
 
                   {user ? (
-                    <p></p>
+                    <UserAccountNav user={user} />
                   ) : (
                     <Link
                       href={'/sign-up'}

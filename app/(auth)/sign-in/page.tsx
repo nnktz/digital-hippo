@@ -50,7 +50,6 @@ const SignInPage = () => {
   const { mutate: signIn, isLoading } = trpc.auth.signIn.useMutation({
     onSuccess: () => {
       toast.success('Logged in.')
-      router.refresh()
 
       if (origin) {
         return router.push(`/${origin}`)
@@ -61,6 +60,7 @@ const SignInPage = () => {
       }
 
       router.push('/')
+      router.refresh()
     },
     onError: (err) => {
       if (err.data?.code === 'UNAUTHORIZED') {
