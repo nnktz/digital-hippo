@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { Check, Shield } from 'lucide-react'
 
 import { getPayloadClient } from '@/server/get-payload'
+import { formatPrice } from '@/lib/utils'
+import { PRODUCT_CATEGORIES } from '@/config'
 
 import { MaxWidthWrapper } from '@/components/max-width-wrapper'
 import { Icons } from '@/components/icons'
-import { formatPrice } from '@/lib/utils'
-import { PRODUCT_CATEGORIES } from '@/config'
-import { Check, Shield } from 'lucide-react'
 import { ImageSlider } from '@/components/image-slider'
 import { ProductReel } from '@/components/product-reel'
 import { AddToCartButton } from '@/components/add-to-cart-button'
@@ -127,9 +127,11 @@ const ProductIdPage = async ({ params }: ProductIdPageProps) => {
           </div>
 
           {/* Add to cart part */}
-          <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
+          <div className="mt-10 lg:col-start-1 lg:row-span-2 lg:max-w-lg lg:self-start">
             <div>
-              <div className="mt-10">{/* TODO: Add to cart button*/}</div>
+              <div className="mt-10">
+                <AddToCartButton product={product} />
+              </div>
 
               <div className="mt-6 text-center">
                 <div className="group inline-flex text-sm font-medium">
