@@ -40,7 +40,7 @@ export const Cart = () => {
     0,
   )
 
-  const fee = 1
+  const fee = items.length > 0 ? 1 : 0
 
   return (
     <Sheet>
