@@ -3,15 +3,31 @@
 import Image from 'next/image'
 import { Loader2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 import { useCart } from '@/hooks/use-cart'
 import { cn, formatPrice } from '@/lib/utils'
+import { trpc } from '@/trpc/client'
 
 import { Button } from '@/components/ui/button'
 import { CartItem } from './_components/cart-item'
 
 const CartPage = () => {
+  const router = useRouter()
   const { items, removeItem } = useCart()
+
+  const { mutate: createCheckoutSession, isLoading } =
+    trpc.payment.createSession.useMutation({
+      onSuccess: ({ url }) => {
+        if (url) router.push(url)
+      },
+      onError: ({ data }) => {
+        if (data?.code === 'UNAUTHORIZED') {
+          toast.error('Please login.')
+        }
+      },
+    })
 
   const [isMounted, setIsMounted] = useState(false)
 
@@ -33,6 +49,8 @@ const CartPage = () => {
   )
 
   const fee = items.length > 0 ? 1 : 0
+
+  const productIds = items.map(({ product }) => product.id)
 
   return (
     <div className="bg-white">
@@ -122,7 +140,15 @@ const CartPage = () => {
             </div>
 
             <div className="mt-6">
-              <Button className="w-full" size={'lg'}>
+              <Button
+                disabled={isLoading || items.length === 0}
+                onClick={() => createCheckoutSession({ productIds })}
+                className="w-full"
+                size={'lg'}
+              >
+                {isLoading && (
+                  <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />
+                )}
                 Checkout
               </Button>
             </div>
