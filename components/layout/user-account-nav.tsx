@@ -24,7 +24,11 @@ export const UserAccountNav = ({ user }: UserAccountNavProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="overflow-visible">
-        <Button variant={'ghost'} size={'sm'} className="relative">
+        <Button
+          variant={'ghost'}
+          size={'sm'}
+          className="relative text-gray-900"
+        >
           My account
         </Button>
       </DropdownMenuTrigger>

@@ -37,7 +37,10 @@ export const Navbar = async () => {
                   {!user && (
                     <Link
                       href={'/sign-in'}
-                      className={buttonVariants({ variant: 'ghost' })}
+                      className={buttonVariants({
+                        variant: 'ghost',
+                        className: 'text-gray-900',
+                      })}
                     >
                       Sign in
                     </Link>
@@ -54,6 +57,7 @@ export const Navbar = async () => {
                       href={'/sign-up'}
                       className={buttonVariants({
                         variant: 'ghost',
+                        className: 'text-gray-900',
                       })}
                     >
                       Create account

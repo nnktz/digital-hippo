@@ -28,7 +28,7 @@ export const NavItem = ({
     <div className="flex">
       <div className="relative flex items-center">
         <Button
-          className="select-none gap-1.5"
+          className="select-none gap-1.5 text-gray-900"
           onClick={handleOpen}
           variant={isOpen ? 'secondary' : 'ghost'}
         >
