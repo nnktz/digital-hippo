@@ -9,6 +9,7 @@ import { NavItems } from './nav-items'
 import { buttonVariants } from '../ui/button'
 import { Cart } from '../cart'
 import { UserAccountNav } from './user-account-nav'
+import { MobileNav } from './mobile-nav'
 
 export const Navbar = async () => {
   const nextCookies = cookies()
@@ -20,7 +21,7 @@ export const Navbar = async () => {
         <MaxWidthWrapper>
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
-              {/* TODO: Mobile nav */}
+              <MobileNav user={user} />
 
               <div className="ml-4 flex lg:ml-0">
                 <Link href={'/'}>
