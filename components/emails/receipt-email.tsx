@@ -45,7 +45,7 @@ import {
   productTitleTable,
   productsTitle,
   tableCell,
-} from './receipt-email-styles'
+} from '../../styles/receipt-email-styles'
 
 interface ReceiptEmailProps {
   email: string
