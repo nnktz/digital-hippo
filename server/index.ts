@@ -1,3 +1,5 @@
+import path from 'path'
+import nextBuild from 'next/dist/build'
 import express from 'express'
 import bodyParser from 'body-parser'
 import * as trpcExpress from '@trpc/server/adapters/express'
@@ -17,7 +19,7 @@ const createContext = ({
   res,
 }: trpcExpress.CreateExpressContextOptions) => ({ req, res })
 
-export type ExperessContext = inferAsyncReturnType<typeof createContext>
+export type ExpressContext = inferAsyncReturnType<typeof createContext>
 
 export type WebhookRequest = IncomingMessage & { rawBody: Buffer }
 
@@ -38,6 +40,18 @@ const start = async () => {
       },
     },
   })
+
+  if (process.env.NEXT_BUILD) {
+    app.listen(PORT, async () => {
+      payload.logger.info('Next.js is building for production')
+      // @ts-expect-error
+      await nextBuild(path.join(__dirname, '../'))
+
+      process.exit()
+    })
+
+    return
+  }
 
   app.use(
     '/api/trpc',

@@ -1,10 +1,10 @@
 import { TRPCError, initTRPC } from '@trpc/server'
 import { PayloadRequest } from 'payload/types'
 
-import { ExperessContext } from '../server'
+import { ExpressContext } from '../server'
 import { User } from '../server/payload-type'
 
-const t = initTRPC.context<ExperessContext>().create()
+const t = initTRPC.context<ExpressContext>().create()
 const middleware = t.middleware
 
 const isAuth = middleware(async ({ ctx, next }) => {
